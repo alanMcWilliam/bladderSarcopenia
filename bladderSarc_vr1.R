@@ -51,7 +51,7 @@ bladderClean <- bladderSarc %>%
   filter(T.stage != '1',
          T.stage != '2/3')
 
-
+### dataframe with blood
 bladderCleanBloods <- bladderSarc %>%
   select(SM.Density, SM.Area, SMI, albumin, gfr, Hb, neutrophil, lymphocyte, N.L.ratio)
 
@@ -62,18 +62,31 @@ summary(bladderClean$SMI)
 
 
 ######################################################################
-### 
+### plot and visualise data
 
-ggplot(data=bladderCleanBloods, aes(SM.Density)) + 
-  geom_histogram(breaks=seq(-20,40, by = 2),
+summary(bladderClean$SM.Density)
+ggplot(data=bladderClean, aes(SM.Density)) + 
+  geom_histogram(breaks=seq(-5,20, by = 1.5),
                  col = "skyblue", fill = "lightblue") +
   labs(title = "", x = "Muscle density" ) +
   theme(panel.background = element_blank())
 
+summary(bladderClean$SMI)
+ggplot(data=bladderClean, aes(SMI)) + 
+  geom_histogram(breaks=seq(0,35, by = 1.5),
+                 col = "skyblue", fill = "lightblue") +
+  labs(title = "", x = "SMI" ) +
+  theme(panel.background = element_blank())
+
+ggplot(data=bladderClean, aes(x=SMI, fill=gender)) + 
+  geom_histogram(alpha=0.6, position = 'identity',
+                breaks=seq(0,35, by = 1)) +
+  labs(title = "", x = "SMI" ) +
+  theme(panel.background = element_blank())
 
 
 ######################################################################
-### 
+### analysis against overall survival
 
 uniCox <- coxph(Surv(time = survival.months, event = RIP.)~SMI, data = bladderClean)
 summary(uniCox)
@@ -92,7 +105,7 @@ summary(bladderSarc$SM.Density)
 
 
 ######################################################################
-###
+### correlations and plots against blood counts
 
 
 plot(bladderCleanBloods$SM.Density, bladderCleanBloods$albumin)
@@ -111,5 +124,9 @@ plot(bladderCleanBloods$SMI, bladderCleanBloods$lymphocyte)
 cor.test(bladderCleanBloods$SMI, bladderCleanBloods$lymphocyte)
 
 plot(bladderCleanBloods$SMI, bladderCleanBloods$N.L.ratio)
+
+
+
+######################################################################
 
 
