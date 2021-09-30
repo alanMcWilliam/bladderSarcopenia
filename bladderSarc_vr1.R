@@ -279,6 +279,22 @@ generateStats(boot_elastic)
 
 
 
+summary(bladderSarc$Muscle.area)
+summary(bladderSarc$SM.Area)        
+summary(bladderSarc$muscle.density)
+summary(bladderSarc$SM.Density)       
+
+### progression free survival
+uniCox <- coxph(Surv(time = PFS, event = progression.)~SMI, data = bladderClean)
+summary(uniCox)
+multiCox <- coxph(Surv(time = PFS, event = progression.)~SMI + age + factor(gender) + factor(T.stage) + pre.NAC.BMI, data = bladderClean)
+summary(multiCox)      
+
+######################################################################
+###
+
+
+
 
 ######################################################################
 ### correlations and plots against blood counts
