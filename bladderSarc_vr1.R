@@ -45,12 +45,14 @@ View(bladderSarc)
 ### select out variables for analysis and clean
 
 bladderClean <- bladderSarc %>%
-  select(RIP., survival.months, SM.Density, SM.Area, height, weight, age, gender, PS, T.stage, ACE.27)
+  select(RIP., survival.months, SM.Density, SM.Area, height, weight, age, gender, PS, T.stage, ACE.27) %>%
+  filter(T.stage != '1',
+         T.stage != '2/3')
 
 
 stview(dfSummary(bladderClean))
 
-
+summary(factor(bladderClean$T.stage))
 
 ######################################################################
 ### 
@@ -58,7 +60,7 @@ stview(dfSummary(bladderClean))
 uniCox <- coxph(Surv(time = survival.months, event = RIP.)~SM.Area, data = bladderClean)
 summary(uniCox)
 
-multiCox <- coxph(Surv(time = survival.months, event = RIP.)~SM.Density + age, data = bladderClean)
+multiCox <- coxph(Surv(time = survival.months, event = RIP.)~SM.Area + weight + age + factor(gender) + factor(T.stage), data = bladderClean)
 summary(multiCox)
 
 summary(factor(bladderClean$RIP.))
