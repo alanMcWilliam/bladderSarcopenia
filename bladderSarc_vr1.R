@@ -158,7 +158,7 @@ registerDoParallel(cores = 4)
 performElasticNet <- function(dataAll){
   #set coefficents for glm 
   mdlY <- as.factor(as.matrix(dataAll["progression."]))  ## need to update for event column
-  mdlX <- model.matrix(~., dataAll[-ncol(dataAll)])
+  mdlX <- model.matrix(~.-1, dataAll[-ncol(dataAll)])
   
   coefOut <- matrix(NA, nrow = 3, ncol = 22)  ## this needs updated for size of dataframe, match below
   
@@ -276,6 +276,22 @@ boot_elastic <- read.csv("C:\\Users\\alan_\\Desktop\\templateHeart\\bootstrapped
 #how to select variables from bootstrapping
 generateStats(boot_elastic)
 
+
+
+
+summary(bladderSarc$Muscle.area)
+summary(bladderSarc$SM.Area)        
+summary(bladderSarc$muscle.density)
+summary(bladderSarc$SM.Density)       
+
+### progression free survival
+uniCox <- coxph(Surv(time = PFS, event = progression.)~SMI, data = bladderClean)
+summary(uniCox)
+multiCox <- coxph(Surv(time = PFS, event = progression.)~SMI + age + factor(gender) + factor(T.stage) + pre.NAC.BMI, data = bladderClean)
+summary(multiCox)      
+
+######################################################################
+###
 
 
 
