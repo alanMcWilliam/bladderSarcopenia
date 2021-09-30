@@ -60,6 +60,18 @@ stview(dfSummary(bladderClean))
 summary(factor(bladderClean$T.stage))
 summary(bladderClean$SMI)
 
+
+######################################################################
+### 
+
+ggplot(data=bladderCleanBloods, aes(SM.Density)) + 
+  geom_histogram(breaks=seq(-20,40, by = 2),
+                 col = "skyblue", fill = "lightblue") +
+  labs(title = "", x = "Muscle density" ) +
+  theme(panel.background = element_blank())
+
+
+
 ######################################################################
 ### 
 
