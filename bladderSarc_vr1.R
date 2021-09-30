@@ -100,3 +100,7 @@ cor.test(bladderCleanBloods$SMI, bladderCleanBloods$lymphocyte)
 
 plot(bladderCleanBloods$SMI, bladderCleanBloods$N.L.ratio)
 
+
+
+######################################################################
+###
