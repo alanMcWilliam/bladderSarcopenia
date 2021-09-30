@@ -41,16 +41,19 @@ bladderSarc <- bladderSarc %>%
   filter(!Number %in% bladderRemove$ptNumber)
 View(bladderSarc)
 
+bladderSarc$SMI <- bladderSarc$SM.Area/(bladderSarc$height^2)
+
 ######################################################################
 ### select out variables for analysis and clean
 
 bladderClean <- bladderSarc %>%
-  select(RIP., survival.months, SM.Density, SM.Area, height, weight, age, gender, PS, T.stage, ACE.27) %>%
+  select(RIP., survival.months, SM.Density, SM.Area, SMI, height, weight, age, gender, PS, T.stage, ACE.27) %>%
   filter(T.stage != '1',
          T.stage != '2/3')
 
-bladderClean$SMI <- bladderClean$SM.Area/(bladderClean$height^2)
 
+bladderCleanBloods <- bladderSarc %>%
+  select(SM.Density, SM.Area, SMI, albumin, gfr, Hb, neutrophil, lymphocyte, N.L.ratio)
 
 stview(dfSummary(bladderClean))
 
@@ -74,4 +77,13 @@ summary(bladderSarc$SM.Area)
 summary(bladderSarc$muscle.density)
 summary(bladderSarc$SM.Density)       
 
+
+
+######################################################################
+###
+
+plot(bladderCleanBloods$SM.Density, bladderCleanBloods$albumin)
+plot(bladderCleanBloods$SM.Density, bladderCleanBloods$neutrophil)
+plot(bladderCleanBloods$SM.Density, bladderCleanBloods$lymphocyte)
+plot(bladderCleanBloods$SM.Density, bladderCleanBloods$N.L.ratio)
 
