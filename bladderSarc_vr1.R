@@ -100,7 +100,16 @@ cor.test(bladderCleanBloods$SMI, bladderCleanBloods$lymphocyte)
 
 plot(bladderCleanBloods$SMI, bladderCleanBloods$N.L.ratio)
 
+<<<<<<< HEAD
 
 
 ######################################################################
 ###
+||||||| merged common ancestors
+>>>>>>>>> Temporary merge branch 2
+=======
+
+
+######################################################################
+
+>>>>>>> c391a05b637e6c455c81335e15e37b92f2ef512c
