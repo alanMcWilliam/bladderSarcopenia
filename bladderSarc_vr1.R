@@ -151,6 +151,11 @@ bladderCleanBootstrap <- bladderSarc %>%
 bladderCleanBootstrap$PS <- as.factor(bladderCleanBootstrap$PS)
 stview(dfSummary(bladderCleanBootstrap))
 
+### save dataframe for bootstrapping
+write.csv(bladderCleanBootstrap, "C:/Users/alan_/Desktop/bladderSarcopenia/bladderCleanBootstrap.csv")
+bladderCleanBootstrap <- read.csv("C:/Users/alan_/Desktop/bladderSarcopenia/bladderCleanBootstrap.csv")
+
+
 pkgs <- list("glmnet", "doParallel", "foreach", "pROC")
 lapply(pkgs, require, character.only = T)
 registerDoParallel(cores = 4)
@@ -223,7 +228,7 @@ bootstrap_r <- function(ds, B) {
 
 #set a seed for bootstrapping
 set.seed(883)
-b = 10
+b = 500
 resultsAll <- bootstrap_r(bladderCleanBootstrap, b)
 View(resultsAll)
 
